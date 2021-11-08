@@ -11,7 +11,6 @@ from utils.offline_asr import OfflineASR
 offline_asr = OfflineASR("model/silero_model_xl.onnx", "model/silero_vocab.json")
 ydl_opts = {
     "format": "bestaudio/best",
-    # id.opus
     "outtmpl": "%(id)s.%(ext)s",
     "extractor_args": {
         "youtube": {
@@ -81,7 +80,6 @@ def parse_caption(response):
 def parse_caption_offline(video_id, start_time, end_time):
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([video_id])
-    # overwrite
     ffmpeg.input(f"{video_id}.webm", ss=start_time, to=end_time).output(
         f"{video_id}.wav", ac=1, ar=16000
     ).overwrite_output().run()
@@ -89,14 +87,3 @@ def parse_caption_offline(video_id, start_time, end_time):
     os.remove(f"{video_id}.wav")
     os.remove(f"{video_id}.webm")
     return sentences
-
-
-if __name__ == "__main__":
-    start_s = 36.2
-    end_s = 56.1
-
-    player_info = parse_player_info("EdJMTzKmWjs")
-    sentences = parse_caption(player_info)
-    index_start = bisect.bisect_left([x["show_s"] for x in sentences], start_s)
-    index_end = bisect.bisect_left([x["show_s"] for x in sentences], end_s)
-    print("".join(x["text"] for x in sentences[index_start:index_end]))
