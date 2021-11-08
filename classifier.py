@@ -37,8 +37,7 @@ def get_transcript(video_id, start_time, end_time):
     video_captions = [
         ts
         for ts in video_captions
-        if ts["text"].strip() != "" 
-        and "[" not in ts["text"]
+        if ts["text"].strip() != "" and "[" not in ts["text"]
     ]
     show_s = [x["show_s"] for x in video_captions]
     index_start = bisect.bisect_left(show_s, start_time)

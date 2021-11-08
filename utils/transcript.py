@@ -8,7 +8,11 @@ import yt_dlp
 
 from utils.offline_asr import OfflineASR
 
-offline_asr = OfflineASR("model/silero_model_xl.onnx", "model/silero_vocab.json")
+offline_asr = OfflineASR(
+    "model/silero_model_xl.onnx",
+    "model/silero_vocab.json",
+    "model/silero_model_det.onnx",
+)
 ydl_opts = {
     "format": "bestaudio/best",
     "outtmpl": "%(id)s.%(ext)s",
