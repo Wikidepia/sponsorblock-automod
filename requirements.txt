@@ -1,0 +1,8 @@
+ffmpeg-python
+numpy
+onnxruntime
+pyctcdecode
+requests
+soundfile
+tokenizers
+yt-dlp
