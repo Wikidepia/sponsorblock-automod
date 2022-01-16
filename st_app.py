@@ -38,9 +38,9 @@ def main():
     )
 
     if automod_ret["is_sponsored"]:
-        st.success(f"This portion of the video was sponsored.")
+        st.success('This portion of the video was sponsored.')
     else:
-        st.error(f"This portion of the video was not sponsored.")
+        st.error('This portion of the video was not sponsored.')
     st.info(f"Transcript : {automod_ret['text']}")
 
 

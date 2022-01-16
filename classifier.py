@@ -27,11 +27,9 @@ def get_transcript(video_id, start_time, end_time):
     player_info = transcript_api.parse_player_info(video_id)
     video_captions = transcript_api.parse_caption(player_info)
     if video_captions == []:
-        # Use silero if no captions
-        transcript = transcript_api.parse_caption_offline(
+        return transcript_api.parse_caption_offline(
             video_id, start_time, end_time
         )
-        return transcript
 
     # Remove [Music], [Laughter], etc
     video_captions = [
@@ -59,7 +57,7 @@ def classify(text):
 def classify_uuid(uuid):
     try:
         video_id, start_time, end_time, category = req_api(uuid)
-        if category != "sponsor" and category != "selfpromo":
+        if category not in ["sponsor", "selfpromo"]:
             return {"error": "Submission category is not sponsor / self promo"}
     except:
         return {"error": "Submission not found"}
